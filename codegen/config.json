@@ -1,0 +1,6 @@
+{
+  "infrastructure-tf": {
+    "cfg-file-project-path": "codegen/pn-infra-configurations.yaml",
+    "account_code": "pn-confinfo"
+  }
+}

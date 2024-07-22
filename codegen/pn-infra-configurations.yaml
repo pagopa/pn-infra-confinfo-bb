@@ -1,0 +1,100 @@
+
+envs:
+  interop_uat:
+    vpcs:
+      - code: pn-confinfo
+        idx: 8 # Secondo ottetto della VPC, deve essere non sovrapposto con altre VPC di altri ambienti
+    azs: 3
+    accounts:
+      - code: core
+        aws_id: "895646477129" # Stringhe non numeri
+        params:
+          pn_core_event_bus_arn: "arn:aws:events:eu-central-1:895646477129:event-bus/pn-bb-eb"
+      - code: pn-confinfo
+        aws_id: "891377202032"  # Stringhe non numeri
+        params:
+          pn_cost_anomaly_detection_email: "pn-irt-team@pagopa.it"
+          pn_cost_anomaly_detection_threshold: "10"
+
+  interop_prod:
+    vpcs:
+      - code: pn-confinfo
+        idx: 11 # Secondo ottetto della VPC, deve essere non sovrapposto con altre VPC di altri ambienti
+    azs: 3
+    accounts:
+      - code: core
+        aws_id: "697818730278" # Stringhe non numeri
+        params:
+          pn_core_event_bus_arn: "arn:aws:events:eu-central-1:697818730278:event-bus/pn-bb-eb"
+      - code: pn-confinfo
+        aws_id: "730335668132"  # Stringhe non numeri
+        params:
+          pn_cost_anomaly_detection_email: "pn-irt-team@pagopa.it"
+          pn_cost_anomaly_detection_threshold: "10"
+
+accounts:
+  - code: pn-confinfo
+    has_apigw: false
+    vpcs:
+      - code: pn-confinfo
+        name: PN ConfInfo BB
+        primary_cidr: 10.<vpc_idx>.0.0/16
+        aws_svc:
+          net: aws
+          interfaces_endpoints:
+            - "sqs"
+            - "logs"
+            - "sns"
+            - "kms"
+            - "kinesis-streams"
+            - "elasticloadbalancing"
+            - "events"
+            - "ecr.api"
+            - "ecr.dkr"
+            - "ssmmessages"
+            - "ssm"
+            - "ec2messages"
+            - "ecs-agent"
+            - "ecs-telemetry"
+            - "ecs"
+            - "secretsmanager"
+            - "monitoring"
+            - "xray"
+        networks:
+          - code: public
+            name: Public
+            gateway: 
+              type: igw
+            has_nat: true
+            first_net_ip: 10.<vpc_idx>.1.0
+            net_size: 16
+
+          - code: ecssin
+            name: ExternalChannels SafeStorage Ingress
+            gateway: null
+            first_net_ip: 10.<vpc_idx>.3.0
+            net_size: 16
+            nlb: true
+
+          - code: confinfo-egres
+            name: ConfInfo Egress
+            gateway: 
+              type: nat
+              network: public
+            first_net_ip: 10.<vpc_idx>.10.0
+            net_size: 256
+            export_cidrs: true
+
+          - code: confinfo
+            name: ConfInfo
+            gateway: null
+            first_net_ip: 10.<vpc_idx>.30.0
+            net_size: 256
+            export_cidrs: true
+                    
+          - code: aws
+            name: AWS Services
+            gateway: null
+            first_net_ip: 10.<vpc_idx>.50.0
+            net_size: 256          
+
