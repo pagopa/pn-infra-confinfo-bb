@@ -6,11 +6,23 @@ api_domains = []
 cdn_domains = []
 apigw_custom_domains = []
   
-core_aws_account_id = "456"
-pn_core_event_bus_arn = "arn:aws:events:eu-central-1:456:event-bus/pn-bb-eb"
-pn_confinfo_aws_account_id = "956319218727"
+core_aws_account_id = "895646477129"
+pn_core_event_bus_arn = "arn:aws:events:eu-central-1:895646477129:event-bus/pn-bb-eb"
+pn_confinfo_aws_account_id = "891377202032"
 pn_cost_anomaly_detection_email = "pn-irt-team@pagopa.it"
 pn_cost_anomaly_detection_threshold = "10"
+pn_logs_retention_days = "14"
+pn_alarm_topic_name = "once-uat-AlarmTopic"
+pn_logs_bucket_name = "pn-logs-bucket-eu-south-1-891377202032-001"
+pn_runtime_env_bucket_name = "pn-runtime-environment-variables-eu-south-1-891377202032"
+pn_cdc_kinesis_stream_name = "pn-confidential-cdc-source-stream"
+pn_cdc_kinesis_stream_retention_hours = "72"
+pn_cdc_kinesis_stream_shard_count = "0"
+pn_cdc_kinesis_stream_mode = "ON_DEMAND"
+pn_logs_kinesis_stream_name = "pn-confidential-logs-source-stream"
+pn_logs_kinesis_stream_retention_hours = "72"
+pn_logs_kinesis_stream_shard_count = "0"
+pn_logs_kinesis_stream_mode = "ON_DEMAND"
 
 
 vpc_pn_confinfo_name = "PN ConfInfo BB"

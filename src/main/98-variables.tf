@@ -106,3 +106,78 @@ variable "core_event_bus_arn" {
   type        = string
   description = "core account event bus arn"
 }
+
+#s3 buckets variables
+variable "pn_logs_bucket_name" {
+  type        = string
+  description = "name of logs s3 bucket"
+}
+
+variable "pn_runtime_env_bucket_name" {
+  type        = string
+  description = "name of runtime environment variable s3 bucket"
+}
+
+#CdcKinesisStream Kinesis variables
+
+variable "pn_cdc_kinesis_stream_name" {
+  description = "CdcKinesisStream-name"
+  type        = string
+  default     = "pn_confinfo_CdcKinesisStream"
+}
+
+variable "pn_cdc_kinesis_stream_retention_hours" {
+  description = "Change Data Capture Kinesis Data Stream retention period in hours"
+  type        = number
+  default     = 24
+}
+
+variable "pn_cdc_kinesis_stream_shard_count" {
+  description = "Number of shards in the stream"
+  type        = number
+  default     = 0
+}
+
+variable "pn_cdc_kinesis_stream_mode" {
+  description = "Stream Mode. ON_DEMAND, PROVISIONED]"
+  type        = string
+  default     = "ON_DEMAND"
+}
+
+#LogsKinesisStream Kinesis variables
+
+variable "pn_logs_kinesis_stream_name" {
+  description = "CdcKinesisStream-name"
+  type        = string
+  default     = "pn_confinfo_LogsKinesisStream"
+}
+
+variable "pn_logs_kinesis_stream_retention_hours" {
+  description = "Change Data Capture Kinesis Data Stream retention period in hours"
+  type        = number
+  default     = 24
+}
+
+variable "pn_logs_kinesis_stream_shard_count" {
+  description = "Number of shards in the stream"
+  type        = number
+  default     = 0
+}
+
+variable "pn_logs_kinesis_stream_mode" {
+  description = "Stream Mode. ON_DEMAND, PROVISIONED]"
+  type        = string
+  default     = "ON_DEMAND"
+}
+
+variable "pn_alarm_topic_name" {
+  description = "AlarmSNSTopic-name"
+  type        = string
+  default     = "AlarmSNSTopic"
+}
+
+variable "pn_logs_retention_days" {
+  description = "Logs retention in days"
+  type        = number
+  default     = 14
+}

@@ -93,3 +93,58 @@ output "ConfInfo_PnCoreTargetEventBus" {
   value = var.core_event_bus_arn
   description = "core event bridge bus"
 }
+
+output "ConfInfo_AlarmSNSTopicArn" {
+  value = aws_sns_topic.sns_pn_confinfo_sns_topic.arn
+  description = "Alarm SNS Topic ARN"
+}
+
+output "ConfInfo_AlarmSNSTopicName" {
+  value = aws_sns_topic.sns_pn_confinfo_sns_topic.name
+  description = "Alarm SNS Topic Name"
+}
+
+output "ConfInfo_CdcKinesisStreamArn" {
+  value = aws_kinesis_stream.stream.arn
+  description = "CDC Kinesis Stream ARN"
+}
+
+output "ConfInfo_CdcKinesisStreamName" {
+  value = aws_kinesis_stream.stream.name
+  description = "CDC Kinesis Stream Name"
+}
+
+output "ConfInfo_CdcKinesisStreamKeyArn" {
+  value = aws_kms_key.kms_pn_confinfo_CdcKinesisServerSideEncryptionKey.arn
+  description = "CDC Kinesis Stream Key ARN"
+}
+
+output "ConfInfo_LogsBucketKmsKeyArn" {
+  value = aws_kms_key.kms_pn_confinfo_LogsBucket.arn
+  description = "Logs Bucket KMS Key ARN"
+}
+
+output "ConfInfo_LogsBucketName" {
+  value = var.pn_logs_bucket_name
+  description = "Logs Bucket Name"
+} 
+
+output "ConfInfo_LogsKinesisStreamArn" {
+  value = module.kinesis_pn_confinfo_CdcKinesisStream.stream_arn
+  description = "Logs Kinesis Stream ARN"
+}
+
+output "ConfInfo_LogsKinesisStreamName" {
+  value = module.kinesis_pn_confinfo_CdcKinesisStream.stream_name
+  description = "Logs Kinesis Stream Name"
+}
+
+output "ConfInfo_LogsKinesisStreamKeyArn" {
+  value = aws_kms_key.kms_pn_confinfo_CdcKinesisServerSideEncryptionKey.arn
+  description = "Logs Kinesis Stream Key ARN"
+}
+
+output "ConfInfo_LogRetention" {
+  value = var.pn_logs_retention_days
+  description = "Logs retention in days"
+}
