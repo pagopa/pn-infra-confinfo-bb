@@ -15,6 +15,18 @@ envs:
         params:
           pn_cost_anomaly_detection_email: "pn-irt-team@pagopa.it"
           pn_cost_anomaly_detection_threshold: "10"
+          pn_logs_retention_days: "14"
+          pn_alarm_topic_name: "once-uat-AlarmTopic"
+          pn_logs_bucket_name: "pn-logs-bucket-eu-south-1-891377202032-001"
+          pn_runtime_env_bucket_name: "pn-runtime-environment-variables-eu-south-1-891377202032"
+          pn_cdc_kinesis_stream_name: "pn-confidential-cdc-source-stream"
+          pn_cdc_kinesis_stream_retention_hours: "72"
+          pn_cdc_kinesis_stream_shard_count: "0"
+          pn_cdc_kinesis_stream_mode: "ON_DEMAND"
+          pn_logs_kinesis_stream_name: "pn-confidential-logs-source-stream"
+          pn_logs_kinesis_stream_retention_hours: "72"
+          pn_logs_kinesis_stream_shard_count: "0"
+          pn_logs_kinesis_stream_mode: "ON_DEMAND"
 
   interop_prod:
     vpcs:
@@ -31,6 +43,18 @@ envs:
         params:
           pn_cost_anomaly_detection_email: "pn-irt-team@pagopa.it"
           pn_cost_anomaly_detection_threshold: "10"
+          pn_logs_retention_days: "180"
+          pn_alarm_topic_name: "once-prod-AlarmTopic"
+          pn_logs_bucket_name: "pn-logs-bucket-eu-south-1-730335668132-001"
+          pn_runtime_env_bucket_name: "pn-runtime-environment-variables-eu-south-1-730335668132"
+          pn_cdc_kinesis_stream_name: "pn-confidential-cdc-source-stream"
+          pn_cdc_kinesis_stream_retention_hours: "72"
+          pn_cdc_kinesis_stream_shard_count: "0"
+          pn_cdc_kinesis_stream_mode: "ON_DEMAND"
+          pn_logs_kinesis_stream_name: "pn-confidential-logs-source-stream"
+          pn_logs_kinesis_stream_retention_hours: "72"
+          pn_logs_kinesis_stream_shard_count: "0"
+          pn_logs_kinesis_stream_mode: "ON_DEMAND"
 
 accounts:
   - code: pn-confinfo
