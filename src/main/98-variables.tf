@@ -107,6 +107,12 @@ variable "core_event_bus_arn" {
   description = "core account event bus arn"
 }
 
+variable "ProjectName" {
+  type        = string
+  default     = "pn"
+  description = "Project Name"
+}
+
 #s3 buckets variables
 variable "pn_logs_bucket_name" {
   type        = string
@@ -180,4 +186,66 @@ variable "pn_logs_retention_days" {
   description = "Logs retention in days"
   type        = number
   default     = 14
+}
+
+variable "pn_logs_kinesis_stream_alarm_threshold" {
+  description = "Logs Kinesis Stream Alarm Threshold"
+  type        = number
+  default     = 3600000
+}
+
+variable "pn_logs_kinesis_stream_oncall_alarm_threshold" {
+  description = "Logs Kinesis Stream Oncall Alarm Threshold"
+  type        = number
+  default     = 216000000
+}
+
+variable "pn_cdc_kinesis_stream_alarm_threshold" {
+  description = "Cdc Kinesis Stream Alarm Threshold"
+  type        = number
+  default     = 3600000
+}
+
+variable "pn_cdc_kinesis_stream_oncall_alarm_threshold" {
+  description = "Cdc Kinesis Stream Oncall Alarm Threshold"
+  type        = number
+  default     = 43200000
+}
+
+variable "pn_event_bus_dlq_maximum_retention_period" {
+  description = "EventBus DeadLetterQueue Maximum Retention Period"
+  type        = number
+  default     = 1209600
+}
+
+variable "pn_event_bus_oncall_dlq_ratio" {
+  description = "EventBus OnCall DeadLetterQueue Ratio"
+  type        = number
+  default     = 0.1
+}
+
+## BACKUP
+
+variable "pn_backup_completion_window" {
+  description = "Backup completion window in minutes"
+  type        = number
+  default     = 600
+}
+
+variable "pn_backup_start_window" {
+  description = "Backup start window in minutes"
+  type        = number
+  default     = 60
+}
+
+variable "pn_backup_cron_expression" {
+  description = "Backup cron expression"
+  type        = string
+  default     = "cron(0 4 * * ? *)"
+}
+
+variable "pn_backup_delete_after" {
+  description = "Backup delete after in days"
+  type        = number
+  default     = 35
 }

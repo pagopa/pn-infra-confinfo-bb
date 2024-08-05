@@ -148,3 +148,36 @@ output "ConfInfo_LogRetention" {
   value = var.pn_logs_retention_days
   description = "Logs retention in days"
 }
+
+#EFS 
+output "ConfInfo_FargateEFSFileSystemID" {
+  value = aws_efs_file_system.pn_confinfo_fargate_efs.id
+  description = "Fargate EFS File System ID"
+}
+
+
+# Confinfo Event Bus
+  output "ConfInfo_ConfinfoEventBusName" {
+    value = aws_cloudwatch_event_bus.pn_confinfo_event_bus.name
+    description = "Confinfo Event Bus Name"
+  }
+
+  output "ConfInfo_ConfinfoEventBusArn" {
+    value = aws_cloudwatch_event_bus.pn_confinfo_event_bus.arn
+    description = "Confinfo Event Bus Arn"
+  }
+
+  output "ConfInfo_EventBusDeadLetterQueueArn" {
+    value = aws_sqs_queue.pn_confinfo_event_bus_dead_letter_queue.arn
+    description = "Event Bus Dead Letter Queue Arn"
+  }
+
+  output "ConfInfo_EventBusDeadLetterQueueUrl" {
+    value = aws_sqs_queue.pn_confinfo_event_bus_dead_letter_queue.id
+    description = "Event Bus Dead Letter Queue Url"
+  }
+
+  output "ConfInfo_EventBusDeadLetterQueueName" {
+    value = aws_sqs_queue.pn_confinfo_event_bus_dead_letter_queue.name
+    description = "Event Bus Dead Letter Queue Name"
+  }

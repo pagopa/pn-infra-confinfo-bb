@@ -1,60 +1,41 @@
-variable "name" {
-  description = "The name to give to the new stream"
-  type        = string
-}
-
-variable "shard_count" {
-  description = "The number of shards to create the stream with"
-  type        = number
-}
-
-variable "shard_level_metrics" {
-  description = "A list of shard-level CloudWatch metrics which can be enabled for the stream"
-  default     = []
-  type        = list(string)
-}
-
-variable "retention_period" {
-  description = "The number of hours that a shard should retain data for"
-  default     = 24
-  type        = number
-}
-
-variable "enforce_consumer_deletion" {
-  description = "A boolean that indicates all registered consumers should be deregistered from the stream so that the stream can be destroyed without error"
-  default     = true
+variable "dynamic_partitioning_enabled" {
   type        = bool
+  default     = true
+  description = "Enable firehose with dynamic partition."
 }
 
-variable "encryption_type" {
-  description = "The encryption type to use for data at rest"
-  default     = "KMS"
+
+variable "firehose_name" {
+  description = "The name of the Kinesis Firehose"
   type        = string
 }
 
-#variable "kms_key_id" {
-#  description = "The KMS Key ID to use for encryption of data at rest"
-#  type        = string
-#}
-
-variable "tags" {
-  description = "The tags to append to this resource"
-  default     = {}
-  type        = map(string)
-}
-
-variable "stream_mode_details" {
-  description = "Capacity mode of the stream, either ON_DEMAND or PROVISIONED (note: ON_DEMAND comes with a much higher base cost for lower throughput - https://aws.amazon.com/kinesis/data-streams/pricing/)"
-  type        = string
-  default     = "ON_DEMAND"
-}
-
-#KMS
-variable "kms_alias" {
-  description = "The KMS alias to use for encryption of data at rest"
+variable "stream_arn" {
+  description = "ARN of the Kinesis stream source"
   type        = string
 }
 
+variable "stream_kms_arn" {
+  description = "ARN of the KMS Kinesis stream source"
+  type        = string
+}
+
+
+variable "s3_bucket_arn" {
+  description = "The ARN of the S3 bucket"
+  type        = string
+}
+
+
+variable "loggroup_retention" {
+  description = "log group retention"
+  type        = number
+}
+
+variable "StreamNamePrefix" {
+  description = "To distinguish different log groups streams"
+  type        = string
+}
 
 #Alarm
 
@@ -84,13 +65,12 @@ variable "evaluation_periods" {
 
 variable "metric_name" {
   type        = string
-  default     = "GetRecords.IteratorAgeMilliseconds"
   description = "The name for the alarm's associated metric."
 }
 
 variable "namespace" {
   type        = string
-  default     = "AWS/Kinesis"
+  default     = "LogsExport"
   description = "The namespace for the alarm's associated metric."
   sensitive   = true
 }
@@ -103,19 +83,13 @@ variable "period" {
 
 variable "statistic" {
   type        = string
-  default     = "Maximum"
+  default     = "Sum"
   description = "The statistic to apply to the alarm's associated metric."
 }
 
 variable "threshold" {
   type        = number
-  default     = 40
-  description = "The value against which the specified statistic is compared."
-}
-
-variable "oncall_threshold" {
-  type        = number
-  default     = 60
+  default     = 1
   description = "The value against which the specified statistic is compared."
 }
 
@@ -158,5 +132,13 @@ variable "dimensions" {
   description = "Dimensions for metrics."
 }
 
+variable "filter_name" {
+  type        = string
+  description = "The name for the alarm's associated metric."
+}
 
+variable "filter_pattern" {
+  type        = string
+  sensitive   = true
+}
 
