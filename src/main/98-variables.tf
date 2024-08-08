@@ -218,7 +218,7 @@ variable "pn_event_bus_dlq_maximum_retention_period" {
   default     = 1209600
 }
 
-variable "pn_event_bus_oncall_dlq_ratio" {
+variable "pn_event_bus_oncall_dlq_ratio" {
   description = "EventBus OnCall DeadLetterQueue Ratio"
   type        = number
   default     = 0.1
