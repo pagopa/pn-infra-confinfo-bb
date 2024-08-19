@@ -124,6 +124,11 @@ variable "pn_runtime_env_bucket_name" {
   description = "name of runtime environment variable s3 bucket"
 }
 
+variable "pn_cd_bucket_name" {
+  type        = string
+  description = "name of cd s3 bucket"
+}
+
 #CdcKinesisStream Kinesis variables
 
 variable "pn_cdc_kinesis_stream_name" {

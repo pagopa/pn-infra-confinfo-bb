@@ -129,6 +129,11 @@ output "ConfInfo_LogsBucketName" {
   description = "Logs Bucket Name"
 } 
 
+output "ConfInfo_CdBucketName" {
+  value = var.pn_cd_bucket_name
+  description = "Continuous Delivery Bucket Name"
+} 
+
 output "ConfInfo_LogsKinesisStreamArn" {
   value = module.kinesis_pn_confinfo_CdcKinesisStream.stream_arn
   description = "Logs Kinesis Stream ARN"

@@ -16,7 +16,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "s3_pn_confinfo_Lo
 }
 
 #LogsBucketKmsKey
-
 resource "aws_kms_key" "kms_pn_confinfo_LogsBucket" {
   description             = "Used by Assumed Roles to Encrypt/Decrypt raw data"
   enable_key_rotation     = true
@@ -60,6 +59,12 @@ resource "aws_kms_alias" "kms_pn_confinfo_LogsBucket" {
   target_key_id = aws_kms_key.kms_pn_confinfo_LogsBucket.key_id
 }
 ##############################
+
+#Continuous Delivery Bucket
+module "s3_pn_confinfo_CdBucket" {
+  source = "./modules/s3"
+  name = var.pn_cd_bucket_name
+}
 
 #RuntimeEnvironmentVariablesBucket
 module "s3_pn_confinfo_RuntimeEnvironmentVariablesBucket" {
