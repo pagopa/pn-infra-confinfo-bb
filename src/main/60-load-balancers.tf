@@ -1,3 +1,61 @@
+resource "aws_security_group" "vpc_pn_confinfo__secgrp_webapp" {
+  
+  name_prefix = "pn-confinfo_vpc-webapp-secgrp"
+  description = "Allow TLS inbound traffic"
+  vpc_id      = module.vpc_pn_confinfo.vpc_id
+
+  ingress {
+    description = "8080 from VPC"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_pn_confinfo_primary_cidr]
+  }
+  
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+}
+
+
+
+# - ECS cluster Application load balancer 
+resource "aws_lb" "pn_confinfo_ecs_alb" {
+  name_prefix        = "EcsA-"
+  internal           = true
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.vpc_pn_confinfo__secgrp_webapp.id]
+  subnets            = local.ConfInfo_SubnetsIds
+
+  enable_deletion_protection = false
+
+  tags = {
+    "Name": "PN ConfInfo - ECS Cluster - ALB"
+    "pn-eni-related": "true",
+    "pn-eni-related-groupName-regexp": base64encode("^pn-confinfo_vpc-webapp-secgrp.*$")
+  }
+}
+# - ECS cluster Application load balancer HTTP listener
+resource "aws_lb_listener" "pn_confinfo_ecs_alb_8080" {
+  load_balancer_arn = aws_lb.pn_confinfo_ecs_alb.arn
+  port              = "8080"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "application/json"
+      message_body = "{ \"error\": \"404\", \"message\": \"Load balancer rule not configured\" }"
+      status_code  = "404"
+    }
+  }
+}
+
 # - NLB Di ingresso per le invocazioni a ExternalChannel e SafeStorage
 resource "aws_lb" "pn_confinfo_ecssin_nlb" {
   name_prefix = "EcssI-"

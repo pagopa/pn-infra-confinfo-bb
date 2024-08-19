@@ -26,14 +26,3 @@ resource "aws_s3_bucket_public_access_block" "bucket" {
   ignore_public_acls      = var.ignore_public_acls
   restrict_public_buckets = var.restrict_public_buckets
 }
-
-#resource "aws_s3_bucket_server_side_encryption_configuration" "s3_pn_confinfo_LogsBucke" {
-#  bucket = aws_s3_bucket.bucket.id
-#
-#  rule {
-#    apply_server_side_encryption_by_default {
-#      kms_master_key_id = aws_kms_key.kms_pn_confinfo_LogsBucket.arn
-#      sse_algorithm     = "aws:kms"
-#    }
-#  }
-#}

@@ -129,6 +129,11 @@ output "ConfInfo_LogsBucketName" {
   description = "Logs Bucket Name"
 } 
 
+output "ConfInfo_CdBucketName" {
+  value = var.pn_cd_bucket_name
+  description = "Continuous Delivery Bucket Name"
+} 
+
 output "ConfInfo_LogsKinesisStreamArn" {
   value = module.kinesis_pn_confinfo_CdcKinesisStream.stream_arn
   description = "Logs Kinesis Stream ARN"
@@ -148,3 +153,36 @@ output "ConfInfo_LogRetention" {
   value = var.pn_logs_retention_days
   description = "Logs retention in days"
 }
+
+#EFS 
+output "ConfInfo_FargateEFSFileSystemID" {
+  value = aws_efs_file_system.pn_confinfo_fargate_efs.id
+  description = "Fargate EFS File System ID"
+}
+
+
+# Confinfo Event Bus
+  output "ConfInfo_ConfinfoEventBusName" {
+    value = aws_cloudwatch_event_bus.pn_confinfo_event_bus.name
+    description = "Confinfo Event Bus Name"
+  }
+
+  output "ConfInfo_ConfinfoEventBusArn" {
+    value = aws_cloudwatch_event_bus.pn_confinfo_event_bus.arn
+    description = "Confinfo Event Bus Arn"
+  }
+
+  output "ConfInfo_EventBusDeadLetterQueueArn" {
+    value = aws_sqs_queue.pn_confinfo_event_bus_dead_letter_queue.arn
+    description = "Event Bus Dead Letter Queue Arn"
+  }
+
+  output "ConfInfo_EventBusDeadLetterQueueUrl" {
+    value = aws_sqs_queue.pn_confinfo_event_bus_dead_letter_queue.id
+    description = "Event Bus Dead Letter Queue Url"
+  }
+
+  output "ConfInfo_EventBusDeadLetterQueueName" {
+    value = aws_sqs_queue.pn_confinfo_event_bus_dead_letter_queue.name
+    description = "Event Bus Dead Letter Queue Name"
+  }
