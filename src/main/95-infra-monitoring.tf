@@ -15,8 +15,7 @@ resource "aws_cloudwatch_event_rule" "ECSOutOfMemoryStoppedTasksEvent" {
       }
     }
   })
-
-  state = "ENABLED"
+  is_enabled = true
 }
 
 resource "aws_cloudwatch_event_target" "ECSOutOfMemoryStoppedTasksEvent" {

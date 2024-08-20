@@ -102,7 +102,7 @@ variable "pn_cost_anomaly_detection_threshold" {
   description = "pn-core cost anomaly detection threshold (percentage)"
 }
 
-variable "core_event_bus_arn" {
+variable "pn_core_event_bus_arn" {
   type        = string
   description = "core account event bus arn"
 }

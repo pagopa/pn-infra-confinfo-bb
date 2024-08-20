@@ -172,8 +172,8 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
     role_arn   = aws_iam_role.firehose-extendend.arn
     bucket_arn = var.s3_bucket_arn
 
-    buffering_interval = 60
-    buffering_size     = 64
+    buffer_interval = 60
+    buffer_size     = 64
 
 
     cloudwatch_logging_options {
@@ -214,8 +214,8 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose-cdc" {
     role_arn   = aws_iam_role.firehose-extendend.arn
     bucket_arn = var.s3_bucket_arn
 
-    buffering_interval = 60
-    buffering_size     = 64
+    buffer_interval = 60
+    buffer_size     = 64
 
 
     cloudwatch_logging_options {
