@@ -25,7 +25,7 @@ output "ConfInfo_VpcEndpointsRequired" {
 }
 
 
-output "ConfInfo_VpcSubnets" {
+output "ConfInfo_SubnetsIds" {
   value = local.ConfInfo_SubnetsIds
 }
 
@@ -53,7 +53,7 @@ output "ConfInfo_ApplicationLoadBalancerMetricsDimensionName" {
 }
 
 
-output "ConfInfo_ApplicationLoadBalancerAwsDns" {
+output "ConfInfo_ApplicationLoadBalancerDomain" {
   value = aws_lb.pn_confinfo_ecs_alb.dns_name 
   description = "ECS cluster Application Load Balancer AWS released DNS, can be used to call microservices"
 }
