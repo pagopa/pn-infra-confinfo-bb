@@ -27,6 +27,7 @@ pn_logs_kinesis_stream_mode = "ON_DEMAND"
 pn_backup_delete_after = "35"
 pn_backup_cron_expression = "cron(0 4 * * ? *)"
 pn_backup_start_window = "60"
+pn_macro_service_name = "pn-confinfo-bb"
 
 
 vpc_pn_confinfo_name = "PN ConfInfo BB"

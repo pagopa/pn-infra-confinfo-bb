@@ -254,3 +254,10 @@ variable "pn_backup_delete_after" {
   type        = number
   default     = 35
 }
+
+##ECS
+variable "pn_macro_service_name" {
+  description = "Macro service name"
+  type        = string
+  default     = "pn-confinfo-bb"
+}

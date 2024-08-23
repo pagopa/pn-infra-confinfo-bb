@@ -186,3 +186,13 @@ output "ConfInfo_FargateEFSFileSystemID" {
     value = aws_sqs_queue.EventBusDeadLetterQueue.name
     description = "Event Bus Dead Letter Queue Name"
   }
+
+  output "ConfInfo_CluserArn" {
+    value = aws_ecs_cluster.EcsCluster.arn
+    description = "ECS Cluster ARN"
+  }
+
+  output "ConfInfo_ClusterName" {
+    value = aws_ecs_cluster.EcsCluster.name
+    description = "ECS Cluster Name"
+  }
