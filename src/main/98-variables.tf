@@ -129,6 +129,12 @@ variable "pn_cd_bucket_name" {
   description = "name of cd s3 bucket"
 }
 
+##ECS
+variable "pn_ss_bucket_name" {
+  description = "Macro service name"
+  type        = string
+}
+
 #CdcKinesisStream Kinesis variables
 
 variable "pn_cdc_kinesis_stream_name" {

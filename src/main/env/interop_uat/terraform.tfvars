@@ -28,6 +28,7 @@ pn_backup_delete_after = "35"
 pn_backup_cron_expression = "cron(0 4 * * ? *)"
 pn_backup_start_window = "60"
 pn_macro_service_name = "pn-confinfo-bb"
+pn_ss_bucket_name = "pn-safestorage-eu-south-1-891377202032"
 
 
 vpc_pn_confinfo_name = "PN ConfInfo BB"

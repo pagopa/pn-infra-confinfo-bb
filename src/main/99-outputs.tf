@@ -147,6 +147,11 @@ output "ConfInfo_LogsKinesisStreamArn" {
   description = "Logs Kinesis Stream ARN"
 }
 
+output "ConfInfo_LogsKinesisSourceStreamArn" {
+  value = module.kinesis_pn_confinfo_LogsKinesisStream.arn
+  description = "Logs Kinesis Stream ARN"
+}
+
 output "ConfInfo_LogsKinesisStreamName" {
   value = module.kinesis_pn_confinfo_LogsKinesisStream.name
   description = "Logs Kinesis Stream Name"
@@ -202,5 +207,10 @@ output "ConfInfo_FargateEFSFileSystemID" {
 
   output "ConfInfo_ECSClusterName" {
     value = aws_ecs_cluster.EcsCluster.name
+    description = "ECS Cluster Name"
+  }
+
+   output "ConfInfo_SafeStorageBucketName" {
+    value = var.pn_ss_bucket_name
     description = "ECS Cluster Name"
   }
