@@ -102,7 +102,7 @@ variable "pn_cost_anomaly_detection_threshold" {
   description = "pn-core cost anomaly detection threshold (percentage)"
 }
 
-variable "core_event_bus_arn" {
+variable "pn_core_event_bus_arn" {
   type        = string
   description = "core account event bus arn"
 }
@@ -127,6 +127,12 @@ variable "pn_runtime_env_bucket_name" {
 variable "pn_cd_bucket_name" {
   type        = string
   description = "name of cd s3 bucket"
+}
+
+##ECS
+variable "pn_ss_bucket_name" {
+  description = "Macro service name"
+  type        = string
 }
 
 #CdcKinesisStream Kinesis variables
@@ -253,4 +259,11 @@ variable "pn_backup_delete_after" {
   description = "Backup delete after in days"
   type        = number
   default     = 35
+}
+
+##ECS
+variable "pn_macro_service_name" {
+  description = "Macro service name"
+  type        = string
+  default     = "pn-confinfo-bb"
 }

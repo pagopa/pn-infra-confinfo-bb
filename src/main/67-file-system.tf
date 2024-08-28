@@ -25,7 +25,7 @@ resource "aws_efs_file_system" "FargateEFSFileSystem" {
 }
 
 resource "aws_efs_mount_target" "MountFargateEfsTarget" {
-  for_each = toset(local.ConfInfo_SubnetsIds)
+  for_each = { for idx, subnet_id in local.ConfInfo_SubnetsIds : idx => subnet_id }
   file_system_id = aws_efs_file_system.FargateEFSFileSystem.id
   subnet_id      = each.value
   security_groups = [aws_security_group.EFSSecurityGroup.id]

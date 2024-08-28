@@ -24,6 +24,9 @@ output "ConfInfo_VpcEndpointsRequired" {
   description = "AWS services endpoints already created"
 }
 
+output "ConfInfo_SubnetsIds" {
+  value = local.ConfInfo_SubnetsIds
+}
 
 output "ConfInfo_VpcSubnets" {
   value = local.ConfInfo_SubnetsIds
@@ -54,6 +57,11 @@ output "ConfInfo_ApplicationLoadBalancerMetricsDimensionName" {
 
 
 output "ConfInfo_ApplicationLoadBalancerAwsDns" {
+  value = aws_lb.pn_confinfo_ecs_alb.dns_name 
+  description = "ECS cluster Application Load Balancer AWS released DNS, can be used to call microservices"
+}
+
+output "ConfInfo_ApplicationLoadBalancerDomain" {
   value = aws_lb.pn_confinfo_ecs_alb.dns_name 
   description = "ECS cluster Application Load Balancer AWS released DNS, can be used to call microservices"
 }
@@ -90,7 +98,7 @@ output "ConfInfo_CoreAwsAccountId" {
 }
 
 output "ConfInfo_PnCoreTargetEventBus" {
-  value = var.core_event_bus_arn
+  value = var.pn_core_event_bus_arn
   description = "core event bridge bus"
 }
 
@@ -105,17 +113,17 @@ output "ConfInfo_AlarmSNSTopicName" {
 }
 
 output "ConfInfo_CdcKinesisStreamArn" {
-  value = aws_kinesis_stream.stream.arn
+  value = module.kinesis_pn_confinfo_CdcKinesisStream.arn
   description = "CDC Kinesis Stream ARN"
 }
 
 output "ConfInfo_CdcKinesisStreamName" {
-  value = aws_kinesis_stream.stream.name
+  value = module.kinesis_pn_confinfo_CdcKinesisStream.name
   description = "CDC Kinesis Stream Name"
 }
 
 output "ConfInfo_CdcKinesisStreamKeyArn" {
-  value = aws_kms_key.kms_pn_confinfo_CdcKinesisServerSideEncryptionKey.arn
+  value = module.kinesis_pn_confinfo_CdcKinesisStream.kms_arn
   description = "CDC Kinesis Stream Key ARN"
 }
 
@@ -135,17 +143,22 @@ output "ConfInfo_CdBucketName" {
 } 
 
 output "ConfInfo_LogsKinesisStreamArn" {
-  value = module.kinesis_pn_confinfo_CdcKinesisStream.stream_arn
+  value = module.kinesis_pn_confinfo_LogsKinesisStream.arn
+  description = "Logs Kinesis Stream ARN"
+}
+
+output "ConfInfo_LogsKinesisSourceStreamArn" {
+  value = module.kinesis_pn_confinfo_LogsKinesisStream.arn
   description = "Logs Kinesis Stream ARN"
 }
 
 output "ConfInfo_LogsKinesisStreamName" {
-  value = module.kinesis_pn_confinfo_CdcKinesisStream.stream_name
+  value = module.kinesis_pn_confinfo_LogsKinesisStream.name
   description = "Logs Kinesis Stream Name"
 }
 
 output "ConfInfo_LogsKinesisStreamKeyArn" {
-  value = aws_kms_key.kms_pn_confinfo_CdcKinesisServerSideEncryptionKey.arn
+  value = module.kinesis_pn_confinfo_LogsKinesisStream.kms_arn
   description = "Logs Kinesis Stream Key ARN"
 }
 
@@ -156,33 +169,48 @@ output "ConfInfo_LogRetention" {
 
 #EFS 
 output "ConfInfo_FargateEFSFileSystemID" {
-  value = aws_efs_file_system.pn_confinfo_fargate_efs.id
+  value = aws_efs_file_system.FargateEFSFileSystem.id
   description = "Fargate EFS File System ID"
 }
 
 
 # Confinfo Event Bus
   output "ConfInfo_ConfinfoEventBusName" {
-    value = aws_cloudwatch_event_bus.pn_confinfo_event_bus.name
+    value = aws_cloudwatch_event_bus.PnConfinfoEventBus.name
     description = "Confinfo Event Bus Name"
   }
 
   output "ConfInfo_ConfinfoEventBusArn" {
-    value = aws_cloudwatch_event_bus.pn_confinfo_event_bus.arn
+    value = aws_cloudwatch_event_bus.PnConfinfoEventBus.arn
     description = "Confinfo Event Bus Arn"
   }
 
   output "ConfInfo_EventBusDeadLetterQueueArn" {
-    value = aws_sqs_queue.pn_confinfo_event_bus_dead_letter_queue.arn
+    value = aws_sqs_queue.EventBusDeadLetterQueue.arn
     description = "Event Bus Dead Letter Queue Arn"
   }
 
   output "ConfInfo_EventBusDeadLetterQueueUrl" {
-    value = aws_sqs_queue.pn_confinfo_event_bus_dead_letter_queue.id
+    value = aws_sqs_queue.EventBusDeadLetterQueue.id
     description = "Event Bus Dead Letter Queue Url"
   }
 
   output "ConfInfo_EventBusDeadLetterQueueName" {
-    value = aws_sqs_queue.pn_confinfo_event_bus_dead_letter_queue.name
+    value = aws_sqs_queue.EventBusDeadLetterQueue.name
     description = "Event Bus Dead Letter Queue Name"
+  }
+
+  output "ConfInfo_ECSClusterARN" {
+    value = aws_ecs_cluster.EcsCluster.arn
+    description = "ECS Cluster ARN"
+  }
+
+  output "ConfInfo_ECSClusterName" {
+    value = aws_ecs_cluster.EcsCluster.name
+    description = "ECS Cluster Name"
+  }
+
+   output "ConfInfo_SafeStorageBucketName" {
+    value = var.pn_ss_bucket_name
+    description = "ECS Cluster Name"
   }
