@@ -1,4 +1,6 @@
 #STREAM SOURCE ROLE
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "firehose-assume" {
   statement {
     effect = "Allow"
@@ -51,7 +53,7 @@ resource "aws_iam_role_policy_attachment" "firehose-stream" {
   policy_arn = aws_iam_policy.firehose-stream.arn
 }
 ###################################################################
- #EXTENDENDED S3 ROLE
+ #EXTENDENDED S3 ROLE (aka LogsExporterRoleArn)
 
 resource "aws_iam_role" "firehose-extendend" {
   name               = "${var.firehose_name}-extended-role"
@@ -63,17 +65,28 @@ data "aws_iam_policy_document" "firehose-extendend-s3" {
     sid    = ""
     effect = "Allow"
     actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
       "s3:AbortMultipartUpload",
       "s3:GetBucketLocation",
       "s3:GetObject",
       "s3:ListBucket",
-      "s3:ListBucketMultipartUploads",
-      "s3:PutObject"
+      "s3:ListBucketMultipartUploads"
     ]
     resources = [
       "${var.s3_bucket_arn}",
       "${var.s3_bucket_arn}/*"
     ]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = [
+      "kms:Encrypt",
+      "kms:GenerateDataKey",
+      "kms:Decrypt"
+    ]
+    resources = ["arn:aws:kms:eu-south-1:${data.aws_caller_identity.current.account_id}:key/*"]
   }
 }
 
@@ -87,55 +100,6 @@ resource "aws_iam_role_policy_attachment" "firehose-extendend-s3" {
   policy_arn = aws_iam_policy.firehose-extendend-s3.arn
 }
 
-
-data "aws_iam_policy_document" "firehose-extendend-put-record" {
-  statement {
-    effect = "Allow"
-    actions = [
-      "firehose:PutRecord",
-      "firehose:PutRecordBatch"
-    ]
-    resources = [
-      var.stream_arn
-    ]
-  }
-}
-
-resource "aws_iam_policy" "firehose-extendend-put-record" {
-  name   = "${var.firehose_name}-put_record-policy"
-  policy = data.aws_iam_policy_document.firehose-extendend-put-record.json
-}
-
-
-resource "aws_iam_role_policy_attachment" "firehose-extendend-put-record" {
-  role       = aws_iam_role.firehose-extendend.name
-  policy_arn = aws_iam_policy.firehose-extendend-put-record.arn
-}
-
-data "aws_iam_policy_document" "firehose-extendend-cloudwatch" {
-  statement {
-    sid    = ""
-    effect = "Allow"
-    actions = [
-      "logs:CreateLogStream",
-      "logs:PutLogEvents"
-    ]
-    resources = [
-      aws_cloudwatch_log_group.firehose_log_group.arn
-    ]
-  }
-}
-
-resource "aws_iam_policy" "firehose-extendend-cloudwatch" {
-  name   = "${var.firehose_name}-cloudwatch-policy"
-  policy = data.aws_iam_policy_document.firehose-extendend-cloudwatch.json
-}
-
-
-resource "aws_iam_role_policy_attachment" "firehose-extendend-cloudwatch" {
-  role       = aws_iam_role.firehose-extendend.name
-  policy_arn = aws_iam_policy.firehose-extendend-cloudwatch.arn
-}
 ##################################################################
 #CLOUDWATCH
 
@@ -167,14 +131,12 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
     role_arn           = aws_iam_role.firehose-stream.arn
   }
 
-
   extended_s3_configuration {
     role_arn   = aws_iam_role.firehose-extendend.arn
     bucket_arn = var.s3_bucket_arn
 
     buffer_interval = 60
-    buffer_size     = 64
-
+    buffer_size = 64
 
     cloudwatch_logging_options {
       enabled = "true"
@@ -215,8 +177,7 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose-cdc" {
     bucket_arn = var.s3_bucket_arn
 
     buffer_interval = 60
-    buffer_size     = 64
-
+    buffer_size = 64
 
     cloudwatch_logging_options {
       enabled = "true"
