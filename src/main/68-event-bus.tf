@@ -11,6 +11,11 @@ resource "aws_sqs_queue" "EventBusDeadLetterQueue" {
   receive_wait_time_seconds = 10
 }
 
+resource "aws_cloudwatch_event_bus" "DevNullEventBus" {
+  name = "${var.ProjectName}-DevNullEventBus"
+}
+
+
 data "aws_iam_policy_document" "PnConfinfoEventBusAccessPolicy" {
   statement {
     sid    = "AccountAccess"
