@@ -83,7 +83,14 @@ resource "aws_lb" "pn_confinfo_ecssin_nlb" {
 resource "aws_vpc_endpoint_service" "pn_confinfo_ecssin_endpoint_svc" {
   acceptance_required        = false
   network_load_balancer_arns = [aws_lb.pn_confinfo_ecssin_nlb.arn]
-  allowed_principals         = ["arn:aws:iam::${var.core_aws_account_id}:root"]
+  allowed_principals         = flatten([
+    "arn:aws:iam::${var.core_aws_account_id}:root",
+    [ 
+      for client_account_id in split(",", var.clients_accounts_ids): 
+        "arn:aws:iam::${trimspace(client_account_id)}:root" 
+          if length(trimspace(client_account_id)) > 0 && trimspace(client_account_id) != var.core_aws_account_id
+    ]
+  ])
 
   tags = {
     "Name": "PN ConfInfo - SafeStorage and ExternalChannel - SVC endpoint"
