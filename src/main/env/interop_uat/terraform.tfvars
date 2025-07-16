@@ -30,7 +30,7 @@ pn_backup_start_window = "60"
 pn_macro_service_name = "pn-confinfo-bb"
 pn_ss_bucket_name = "pn-safestorage-eu-south-1-891377202032"
 clients_accounts_ids = "505630707203,755649575658"
-clients_target_users_lists = "dev-interop-client-doc|dev-interop-client-jwt,qa-interop-client-doc|qa-interop-client-jwt"
+clients_target_users_lists = "interop-dev-client-doc|interop-dev-client-jwt,interop-qa-client-doc|interop-qa-client-jwt"
 
 
 vpc_pn_confinfo_name = "PN ConfInfo BB"

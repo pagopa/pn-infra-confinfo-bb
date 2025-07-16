@@ -70,7 +70,7 @@ resource "aws_cloudwatch_event_target" "event_external_destination_target" {
 resource "aws_sns_topic" "client_ssn" {
   for_each = local.clients_info
 
-  name = format("safestorage_client_%s", each.value.user_name)
+  name = format("safe_storage_client_%s", each.value.user_name)
 }
 
 resource "aws_sns_topic_policy" "client_ssn_policy" {
