@@ -58,7 +58,7 @@ resource "aws_cloudwatch_event_target" "event_external_destination_target" {
   event_bus_name = aws_cloudwatch_event_bus.PnConfinfoEventBus.name
   role_arn = aws_iam_role.send_safestorage_events_to_client_accounts.arn
   
-  target_id = format("SSN_client_user_%s", each.key)
+  target_id = format("user_%s", each.key)
   arn       = aws_sns_topic.client_ssn[ each.key ].arn
 
   dead_letter_config {
