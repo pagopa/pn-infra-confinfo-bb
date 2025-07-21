@@ -31,9 +31,11 @@ locals {
 
 }
 
+# TODO aggiungere DLQ ai topic
 
 
-resource "aws_cloudwatch_event_rule" "event_client_accounts_destinations" {
+
+resource "aws_cloudwatch_event_rule" "event_to_clients_sns_topics_rules" {
 
   for_each = local.clients_info
 
@@ -41,7 +43,7 @@ resource "aws_cloudwatch_event_rule" "event_client_accounts_destinations" {
   description = format("Send SafeStorage events to aws clients accounts %s", each.key)
   event_bus_name = aws_cloudwatch_event_bus.PnConfinfoEventBus.name
   
-  role_arn = aws_iam_role.send_safestorage_events_to_client_accounts.arn
+  role_arn = aws_iam_role.send_safestorage_events_to_clients_topics_role.arn
 
   event_pattern = jsonencode({
     source = [ "GESTORE DISPONIBILITA" ]
@@ -51,12 +53,12 @@ resource "aws_cloudwatch_event_rule" "event_client_accounts_destinations" {
   })
 }
 
-resource "aws_cloudwatch_event_target" "event_external_destination_target" {
+resource "aws_cloudwatch_event_target" "event_to_clients_sns_topics_targets" {
   for_each = local.clients_info
   
-  rule      = aws_cloudwatch_event_rule.event_client_accounts_destinations[ each.key ].name
+  rule      = aws_cloudwatch_event_rule.event_to_clients_sns_topics_rules[ each.key ].name
   event_bus_name = aws_cloudwatch_event_bus.PnConfinfoEventBus.name
-  role_arn = aws_iam_role.send_safestorage_events_to_client_accounts.arn
+  role_arn = aws_iam_role.send_safestorage_events_to_clients_topics_role.arn
   
   target_id = format("user_%s", each.key)
   arn       = aws_sns_topic.client_ssn[ each.key ].arn
@@ -97,7 +99,7 @@ resource "aws_sns_topic_policy" "client_ssn_policy" {
   })
 }
 
-resource "aws_iam_role" "send_safestorage_events_to_client_accounts" {
+resource "aws_iam_role" "send_safestorage_events_to_clients_topics_role" {
   name_prefix = "send_evt_role"
 
   assume_role_policy = data.aws_iam_policy_document.event_bridge_can_assume.json
@@ -119,20 +121,12 @@ data "aws_iam_policy_document" "event_bridge_can_assume" {
       variable = "aws:SourceAccount"
       values   = [data.aws_caller_identity.current.account_id]
     }
-
-    /*condition {
-      test     = "ArnLike"
-      variable = "aws:SourceArn"
-      values   = [
-        aws_cloudwatch_event_bus.PnConfinfoEventBus.arn
-      ]
-    }*/
   }
 }
 
-resource "aws_iam_role_policy" "event_bus_to_topic" {
+resource "aws_iam_role_policy" "event_bus_to_topics" {
   name = "SendToSNS4Clients"
-  role = aws_iam_role.send_safestorage_events_to_client_accounts.id
+  role = aws_iam_role.send_safestorage_events_to_clients_topics_role.id
 
   policy = jsonencode({
     Version = "2012-10-17"
