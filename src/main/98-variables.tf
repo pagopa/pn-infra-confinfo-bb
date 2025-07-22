@@ -107,6 +107,26 @@ variable "pn_core_event_bus_arn" {
   description = "core account event bus arn"
 }
 
+variable "clients_accounts_ids" {
+  type        = string
+  default     = ""
+  description = "Comma separated list of AWS accounts allowed to invoke exposed Service Endpoint"
+}
+
+variable "clients_target_users_lists" {
+  type        = string
+  default     = ""
+  description = <<EOF
+    A comma separated list of list separated by | symbol. 
+    Every element is a SafeStorage user name. 
+    
+    Example: dev-interop_001|dev-interop_002,qa-interop_001|qa-interop_002
+    This means that two client aws accounts are used and
+     - First aws account use dev-interop_001 and dev-interop_002 SafeStorage users.
+     - Second aws account use qa-interop_001 and qa-interop_002 SafeStorage users.
+EOF 
+}
+
 variable "ProjectName" {
   type        = string
   default     = "pn"

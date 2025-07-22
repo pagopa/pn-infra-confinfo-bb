@@ -98,7 +98,7 @@ output "ConfInfo_CoreAwsAccountId" {
 }
 
 output "ConfInfo_PnCoreTargetEventBus" {
-  value = var.pn_core_event_bus_arn
+  value = length(local.clients_accounts_ids) > 0 ? aws_cloudwatch_event_bus.DevNullEventBus.arn : var.pn_core_event_bus_arn
   description = "core event bridge bus"
 }
 
