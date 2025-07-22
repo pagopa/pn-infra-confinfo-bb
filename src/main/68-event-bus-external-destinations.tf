@@ -20,7 +20,7 @@ locals {
 
   # - This local contains an array of array.
   #   The outer array contains one element for each AWS Account;
-  #   every element is an inner array containing the list of safe-storage clients that 
+  #   every element is an inner array containing the list of safestorage clients that 
   #   run on one AWS Account
   split_clients_target_users_lists = flatten([
     for idx, users_list in local.clients_target_users_lists: [
@@ -34,7 +34,7 @@ locals {
   ])
 
   # - Normalized data structure. clients_info is a "map" that associate a
-  #   key of type string composed joining the AWS account id and the safestorage-client-short-code
+  #   key of type string composed joining the AWS account id and the safestorage client-short-code
   #   with a value composed by the same two values as distinct properties.
   clients_info = {
     for user in local.split_clients_target_users_lists:
@@ -47,7 +47,7 @@ locals {
 
 }
 
-# - One SNS topic for each safe-storage client
+# - One SNS topic for each safestorage client
 resource "aws_sns_topic" "client_ssn" {
   for_each = local.clients_info
 
@@ -55,7 +55,7 @@ resource "aws_sns_topic" "client_ssn" {
 }
 
 # One distinct policy for every SNS topic; this policy allow subscription 
-# to the topic from the AWS Account associated to the safe-storage client.
+# to the topic from the AWS Account associated to the safestorage client.
 resource "aws_sns_topic_policy" "client_ssn_policy" {
   for_each = local.clients_info
 
@@ -81,7 +81,7 @@ resource "aws_sns_topic_policy" "client_ssn_policy" {
 }
 
 
-# - One EventBus rule for each safe-storage client
+# - One EventBus rule for each safestorage client
 resource "aws_cloudwatch_event_rule" "event_to_clients_sns_topics_rules" {
 
   for_each = local.clients_info
@@ -100,7 +100,7 @@ resource "aws_cloudwatch_event_rule" "event_to_clients_sns_topics_rules" {
   })
 }
 
-# - One target for every rule (one for each safe-storage client)
+# - One target for every rule (one for each safestorage client)
 resource "aws_cloudwatch_event_target" "event_to_clients_sns_topics_targets" {
   for_each = local.clients_info
   
