@@ -29,6 +29,8 @@ pn_backup_cron_expression = "cron(0 4 * * ? *)"
 pn_backup_start_window = "60"
 pn_macro_service_name = "pn-confinfo-bb"
 pn_ss_bucket_name = "pn-safestorage-eu-south-1-730335668132"
+clients_accounts_ids = "697818730278"
+clients_target_users_lists = "interop-prod-document-signer|interop-prod-event-signer|interop-prod-audit-signer|interop-prod-signed-object-persister"
 
 
 vpc_pn_confinfo_name = "PN ConfInfo BB"
