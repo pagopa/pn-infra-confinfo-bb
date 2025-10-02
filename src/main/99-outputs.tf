@@ -117,6 +117,11 @@ output "ConfInfo_CdcKinesisStreamArn" {
   description = "CDC Kinesis Stream ARN"
 }
 
+output "ConfInfo_CdcKinesisSourceStreamArn" {
+  value = module.kinesis_pn_confinfo_CdcKinesisStream.arn
+  description = "CDC Kinesis Stream ARN"
+}
+
 output "ConfInfo_CdcKinesisStreamName" {
   value = module.kinesis_pn_confinfo_CdcKinesisStream.name
   description = "CDC Kinesis Stream Name"
