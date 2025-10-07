@@ -30,7 +30,7 @@ pn_backup_start_window = "60"
 pn_macro_service_name = "pn-confinfo-bb"
 pn_ss_bucket_name = "pn-safestorage-eu-south-1-891377202032"
 clients_accounts_ids = "505630707203,755649575658,895646477129,565393043798,533267098416"
-clients_target_users_lists = "interop-dev-document-signer|interop-dev-event-signer|interop-dev-audit-signer|interop-dev-signed-object-persister,interop-qa-document-signer|interop-qa-event-signer|interop-qa-audit-signer|interop-qa-signed-object-persister,interop-test-document-signer|interop-test-event-signer|interop-test-audit-signer|interop-test-signed-object-persister,interop-vapt-document-signer|interop-vapt-event-signer|interop-vapt-audit-signer|interop-vapt-signed-object-persister,interop-att-document-signer|interop-att-event-signer|interop-att-audit-signer|interop-att-signed-object-persister"
+clients_target_users_lists = "interop-dev-documents-signer|interop-dev-events-signer|interop-dev-audit-signer|interop-dev-signed-objects-persister,interop-qa-documents-signer|interop-qa-events-signer|interop-qa-audit-signer|interop-qa-signed-objects-persister,interop-test-documents-signer|interop-test-events-signer|interop-test-audit-signer|interop-test-signed-objects-persister,interop-vapt-documents-signer|interop-vapt-events-signer|interop-vapt-audit-signer|interop-vapt-signed-objects-persister,interop-att-documents-signer|interop-att-events-signer|interop-att-audit-signer|interop-att-signed-objects-persister"
 
 
 vpc_pn_confinfo_name = "PN ConfInfo BB"
