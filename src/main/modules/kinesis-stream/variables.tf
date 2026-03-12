@@ -158,5 +158,17 @@ variable "dimensions" {
   description = "Dimensions for metrics."
 }
 
+variable "with_alarm" {
+  description = "Whether to create CloudWatch alarm for the Kinesis Stream"
+  type        = bool
+  default     = false
+}
+
+variable "with_oncall_alarm" {
+  description = "Whether to create CloudWatch oncall alarm for the Kinesis Stream"
+  type        = bool
+  default     = false
+}
+
 
 

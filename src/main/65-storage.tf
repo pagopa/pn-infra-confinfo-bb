@@ -92,6 +92,8 @@ module "kinesis_pn_confinfo_CdcKinesisStream" {
   ok_actions = [aws_sns_topic.sns_pn_confinfo_sns_topic.arn]
   oncall_threshold = var.pn_cdc_kinesis_stream_oncall_alarm_threshold
   threshold = var.pn_cdc_kinesis_stream_alarm_threshold
+  with_alarm = var.with_cdc_kinesis_stream_alarm
+  with_oncall_alarm = var.with_cdc_kinesis_stream_oncall_alarm
   dimensions = {
     StreamName = var.pn_cdc_kinesis_stream_name
   }
@@ -121,7 +123,8 @@ module "kinesis_pn_confinfo_LogsKinesisStream" {
   ok_actions = [aws_sns_topic.sns_pn_confinfo_sns_topic.arn]
   oncall_threshold = var.pn_logs_kinesis_stream_oncall_alarm_threshold
   threshold = var.pn_logs_kinesis_stream_alarm_threshold
-  
+  with_alarm = var.with_logs_kinesis_stream_alarm
+  with_oncall_alarm = var.with_logs_kinesis_stream_oncall_alarm
   dimensions = {
     StreamName = var.pn_logs_kinesis_stream_name
   }

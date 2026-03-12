@@ -44,6 +44,8 @@ resource "aws_kms_alias" "alias" {
 
 
 resource "aws_cloudwatch_metric_alarm" "alarm" {
+  //create only if variable with_alarm is true
+  count = var.with_alarm ? 1 : 0
 
   alarm_name                = var.alarm_name
   alarm_description         = var.alarm_description
@@ -64,6 +66,8 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "oncall-alarm" {
+  //create only if variable with_oncall_alarm is true
+  count = var.with_oncall_alarm ? 1 : 0
 
   alarm_name                = "oncall-${var.alarm_name}"
   alarm_description         = var.alarm_description
