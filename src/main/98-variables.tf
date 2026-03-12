@@ -231,6 +231,18 @@ variable "pn_logs_kinesis_stream_oncall_alarm_threshold" {
   default     = 216000000
 }
 
+variable "with_logs_kinesis_stream_alarm" {
+  description = "Whether to create CloudWatch alarm for Logs Kinesis Stream"
+  type        = bool
+  default     = false
+}
+
+variable "with_logs_kinesis_stream_oncall_alarm" {
+  description = "Whether to create CloudWatch oncall alarm for Logs Kinesis Stream"
+  type        = bool
+  default     = false 
+}
+
 variable "pn_cdc_kinesis_stream_alarm_threshold" {
   description = "Cdc Kinesis Stream Alarm Threshold"
   type        = number
@@ -241,6 +253,19 @@ variable "pn_cdc_kinesis_stream_oncall_alarm_threshold" {
   description = "Cdc Kinesis Stream Oncall Alarm Threshold"
   type        = number
   default     = 43200000
+}
+
+
+variable "with_cdc_kinesis_stream_alarm" {
+  description = "Whether to create CloudWatch alarm for Cdc Kinesis Stream"
+  type        = bool
+  default     = false
+}
+
+variable "with_cdc_kinesis_stream_oncall_alarm" {
+  description = "Whether to create CloudWatch oncall alarm for Cdc Kinesis Stream"
+  type        = bool
+  default     = false 
 }
 
 variable "pn_event_bus_dlq_maximum_retention_period" {
