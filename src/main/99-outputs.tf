@@ -87,6 +87,11 @@ output "ConfInfo_WebappSecurityGroupArn" {
   description = "WebApp security group ARN"
 }
 
+output "ConfInfo_AlbSecurityGroup" {
+  value = aws_security_group.vpc_pn_confinfo__secgrp_webapp.id
+  description = "ALB security group id"
+}
+
 output "ConfInfo_ServiceEndpoint_ToExternalChannelSafeStorage" {
   value = aws_vpc_endpoint_service.pn_confinfo_ecssin_endpoint_svc.service_name
   description = "Service endpoint for External Channel and Safe storage connections"
